@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BookRepository } from '../../domain/repos/book.repository.interface';
+import { BookRepository } from '../../domain/repositories/book.repository.interface';
 import { Book } from '../../domain/models/book.model';
 
 @Injectable()

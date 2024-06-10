@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AuthorRepository } from '../../domain/repos/author.repository.interface';
+import { AuthorRepository } from '../../domain/repositories/author.repository.interface';
 import { Author } from '../../domain/models/author.model';
 
 @Injectable()
