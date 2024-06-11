@@ -8,6 +8,8 @@ import { BookService } from './application/services/book.service';
 import { DatabaseModule } from './infrastructure/databases/mongoose.module';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import env from './infrastructure/databases/config/env';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConfig } from './infrastructure/databases/config/jwt.config';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import env from './infrastructure/databases/config/env';
       connectionInitOptions: { wait: false },
     }),
     DatabaseModule,
+    JwtModule.register(jwtConfig),
+    AuthModule,
   ],
   controllers: [AuthorController, BookController],
   providers: [AuthorService, BookService],
