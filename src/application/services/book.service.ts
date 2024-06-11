@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { BookRepository } from '../../domain/repositories/book.repository.interface';
 import { Book } from '../../domain/models/book.model';
 
 @Injectable()
 export class BookService {
-  constructor(private readonly bookRepository: BookRepository) {}
+  constructor(
+    @Inject('BookRepository') private readonly bookRepository: BookRepository
+  ) {}
 
   create(book: Book): Promise<Book> {
     return this.bookRepository.create(book);

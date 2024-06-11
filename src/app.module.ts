@@ -6,7 +6,8 @@ import { BookController } from './adapters/controllers/book.controller';
 import { AuthorService } from './application/services/author.service';
 import { BookService } from './application/services/book.service';
 import { DatabaseModule } from './infrastructure/databases/mongoose.module';
-import  env  from './infrastructure/databases/config/env';
+import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import env from './infrastructure/databases/config/env';
 
 @Module({
   imports: [
@@ -14,7 +15,21 @@ import  env  from './infrastructure/databases/config/env';
       isGlobal: true,
       load: [env],
     }),
-    MongooseModule.forRoot(process.env.MONGO_URI),
+    MongooseModule.forRootAsync({
+      useFactory: () => ({
+        uri: process.env.MONGO_URI,
+      }),
+    }),
+    RabbitMQModule.forRoot(RabbitMQModule, {
+      exchanges: [
+        {
+          name: 'exchange1',
+          type: 'topic',
+        },
+      ],
+      uri: process.env.RABBITMQ_URI,
+      connectionInitOptions: { wait: false },
+    }),
     DatabaseModule,
   ],
   controllers: [AuthorController, BookController],

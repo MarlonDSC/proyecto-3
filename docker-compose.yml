@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 services:
   api:
@@ -24,6 +24,11 @@ services:
       - "27017:27017"
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   rabbitmq:
     image: rabbitmq:management
@@ -35,6 +40,11 @@ services:
       - "15672:15672"
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   app-network:
