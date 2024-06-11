@@ -10,6 +10,7 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import env from './infrastructure/databases/config/env';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConfig } from './infrastructure/databases/config/jwt.config';
+import { AuthModule } from './infrastructure/modules/auth.module';
 
 @Module({
   imports: [
